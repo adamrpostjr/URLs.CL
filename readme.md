@@ -10,3 +10,4 @@ A simple open source url shortener for private and public use.
 - [ ] Create database to store routes in
 - [ ] flush the db once a month or two months
 - [ ] Move to production
+-- [ ] Work on mobile CSS
