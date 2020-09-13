@@ -1,0 +1,23 @@
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>URLS.CL</title>
+    <link rel="stylesheet" type="text/css" href="/main.css">
+  </head>
+  <body>
+
+    <form class="shorten" action="/" method="post">
+      <h1>URLs.<span>CL</span></h1>
+      <input class="urls" type="text" name="url" value="" placeholder="ENTER A URL" autocomplete="off"> <br>
+      <label for="otu" id="otu">One Time Use?</label><input id="cb" type="checkbox" name="otu" value="su">
+      <button type="submit" name="submit">Shorten</button>
+    </form>
+    <div class="result" style="display: none;">
+      <span id="results"></span>
+    </div>
+    <div class="shout">
+      github: <a href="https://github.com/adamrpostjr/URLS.CL">https://github.com/adamrpostjr/URLS.CL</a>
+    </div>
+  </body>
+  <script src="/main.js" charset="utf-8"></script>
+</html>

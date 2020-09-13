@@ -1,0 +1,99 @@
+body{
+  background-color: #262626;
+  overflow: hidden
+}
+.result{
+  position: absolute;
+  bottom: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+  font-weight: bolder;
+  color: white;
+  letter-spacing: 2px;
+  border: solid 2px grey;
+  height: 60%;
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  background-color: #ffffff1f;
+  box-shadow: 13px 12px 20px #36243a;
+}
+.shorten{
+  width: fit-content;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+.shorten h1{
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+.shorten .urls{
+  border-bottom: solid 4px #36243a;
+  background: unset;
+  text-align: center;
+  border-top: unset;
+  border-left: unset;
+  border-right: unset;
+  width: 850px;
+  color: white;
+  font-weight: bold;
+  font-size: large;
+  letter-spacing: 2px;
+  border-radius: 10px;
+  margin-bottom: 80px;
+  transition: box-shadow 0.2s ease-in-out;
+}
+.shorten .urls:focus{
+  box-shadow: 13px 12px 20px #36243a;
+  outline: unset;
+}
+.shorten button{
+  border: unset;
+  border-radius: unset;
+  background: #36243a;
+  font-size: 20px;
+  font-weight: bolder;
+  padding: 2px 30px;
+  float: right;
+  color: #0a0a0a;
+  outline: unset;
+  transition: box-shadow 0.2s ease-in-out;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+.shorten button:hover{
+box-shadow: 13px 12px 20px black;
+color: #black;
+}
+#otu{
+  float: left;
+  font-weight: bolder;
+  font-size: 20px;
+  color: #0a0a0a;
+  transition: text-shadow 0.2s ease-in-out;
+
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+#otu{
+  text-shadow: 6px 6px 6px black;
+}
+#cb{
+  visibility: hidden;
+}
+.shout{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
