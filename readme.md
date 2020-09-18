@@ -9,6 +9,7 @@ A simple open source url shortener for private and public use.
 - [x] Create routes to handle the shortened URLS
 - [x] Create database to store routes in
 - [ ] Create OTU function
+- [ ] handle errors better on front end
 - [ ] Create API to get info on slugs
 - [x] Move to production
 - [ ] Work on mobile CSS
