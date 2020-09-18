@@ -11,6 +11,6 @@ A simple open source url shortener for private and public use.
 - [ ] Create OTU function
 - [ ] Create API to get info on slugs
 - [x] Move to production
--- [ ] Work on mobile CSS
--- [ ] flush the db once a month or two months
--- [ ] Create Image for title(or find nice font)
+- [ ] Work on mobile CSS
+- [ ] flush the db once a month or two months
+- [ ] Create Image for title(or find nice font)
