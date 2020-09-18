@@ -12,9 +12,10 @@ function checkeD() {
   }
 }
 checkeD()
-
 function createURI() {
-  var input = document.getElementById('urls')
+  const input = document.getElementById('urls')
+  const results = document.getElementById('link')
+  const popup = document.getElementById('popup')
   var checked = checkbox.checked ? checked = 1 : checked = 0
   $(function() {
     $('#shorten').submit(function(event) {
@@ -27,17 +28,31 @@ function createURI() {
         data: JSON.stringify({"url": input.value, "otu": checked}),
         dataType: 'json',
         success: function(resp){
-          if(resp.error != null){
-            alert('Error: '+resp.error.code+'\n'+
-              'Errno: '+resp.error.errno+'\n'+
-              'Msg: '+resp.error.sqlMessage)
-              $('#setupDB')[0].reset();
-          } else{
             console.log(resp)
-          }
+            var key = Object.keys(resp)
+            if (key[0] == "code") {
+              console.log('error');
+            } else {
+              popup.style.display = "flex";
+              results.innerText = resp.FullURL
+              results.href = 'https://'+resp.FullURL
+            }
         }
       });
     });
   });
 }
 createURI()
+
+
+
+function popupControl() {
+  const popup = document.getElementById('popup')
+  const close = document.getElementById('close')
+  const form = document.getElementById('shorten')
+  close.onmousedown = function(){
+    form.reset();
+    popup.style.display = "none";
+  }
+}
+ popupControl()

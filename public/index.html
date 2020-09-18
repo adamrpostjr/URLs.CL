@@ -10,14 +10,15 @@
   </head>
   <body>
 
-    <form class="shorten" id="shorten" action="/urls" method="post">
+    <form class="shorten" id="shorten" action="/" method="post">
       <h1>URLs.<span>CL</span></h1>
       <input class="urls" id="urls" type="text" name="url" value="" placeholder="ENTER A URL" autocomplete="off"> <br>
       <label for="otu" id="otu">One Time Use?</label><input id="cb" type="checkbox" name="otu" value="su">
       <button type="submit" name="submit">Shorten</button>
     </form>
-    <div class="result" style="display: none;">
-      <span id="results"></span>
+    <div class="result" id="popup" style="display: none;">
+      <div id="close">X</div>
+      <span id="results"><a id="link" href=""></a> </span>
     </div>
     <div class="shout">
       github: <a href="https://github.com/adamrpostjr/URLS.CL">https://github.com/adamrpostjr/URLS.CL</a>

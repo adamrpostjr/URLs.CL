@@ -1,4 +1,6 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
+const slowDown = require('express-slow-down');
 const bodyParser = require('body-parser');
 const yup = require('yup');
 const env = require('dotenv').config();
@@ -58,6 +60,7 @@ urls.get('/:slug', (req,res,next) =>{
       if (error) throw error;
       if (results[0] == null) {
         res.json('404 not found')
+        // TODO: build 404
     }else {
       connection.query('update cl set uses = uses + 1 where slug=?',[slug])
       console.log('Sent: '+results[0].ref);
@@ -67,12 +70,19 @@ urls.get('/:slug', (req,res,next) =>{
   });
 }),
 // Post
-urls.post("/", async (req, res) => {
-  var postReq = {'slug': nanoid(7), 'ref': req.body.url,'uses': 0, 'otu':req.body.otu}
-  const slug = postReq.slug
+urls.post('/', slowDown({
+  windowMs: 30 * 1000,
+  delayAfter: 1,
+  delayMs: 500,
+}), rateLimit({
+  windowMs: 30 * 1000,
+  max: 1,
+}), async (req, res) => {
+  var postReq = {'slug': nanoid(4), 'ref': req.body.url,'uses': 0, 'otu':req.body.otu}
+   const slug = postReq.slug
+  //const slug = 'AbTpFZ5'
   const ref = postReq.ref
   const otu = postReq.otu
-
   try {
     await schema.validate({
       slug,
@@ -80,18 +90,18 @@ urls.post("/", async (req, res) => {
       otu,
     })
     if (ref.includes('urls.cl')) {
-      throw ({'errors':'REALLYYYY? REALLY THO..'});
+      throw ({'code': 'ER_WTH','Error':'REALLYYYY? REALLY THO..'});
     }
     await connection.query('INSERT INTO cl (slug, ref, uses, otu) VALUES (?,?,?,?)',[slug, ref, 0, otu] , function (error, results, fields) {
       if (error){
         console.log(error)
+        res.json(error)
       }else {
-        res.json({'Created': slug, 'For': ref, 'Allowances': otu})
-        //console.log({'Created': slug, 'For': ref, 'Allowances': otu})
+        res.json({'Created': slug, 'For': ref, 'Allowances': otu, 'FullURL': "urls.cl/"+slug})
       }
     });
   } catch (e) {
-    console.log(e.errors);
-    res.json(e.errors)
+    console.log(e);
+    res.json(e)
   }
 });

@@ -20,6 +20,30 @@ body{
   background-color: #000000ab;
   box-shadow: 13px 12px 20px #36243a;
 }
+#close{
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  height: 45px;
+  width: 45px;
+  background: #36243a;
+  box-shadow: -14px 15px 16px 4px black;
+  -webkit-user-select: none; /* Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+/Edge */
+  user-select: none; /* Standard */
+}
+#link{
+  font-size: xxx-large;
+    font-weight: bolder;
+    letter-spacing: 6px;
+    color: white;
+    font-family: monospace;
+    text-decoration: unset;
+}
 .shorten{
   width: fit-content;
   position: absolute;
@@ -95,4 +119,14 @@ color: #black;
   position: absolute;
   bottom: 0;
   right: 0;
+  font-size: 17px;
+  font-weight: bolder;
+  color: white;
+font-weight: bold;
+font-size: large;
 }
+.shout a{
+  color: white;
+  font-weight: bold;
+  font-size: large;
+} 
