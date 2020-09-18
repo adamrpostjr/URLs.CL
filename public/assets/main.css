@@ -17,7 +17,7 @@ body{
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  background-color: #ffffff1f;
+  background-color: #000000ab;
   box-shadow: 13px 12px 20px #36243a;
 }
 .shorten{
@@ -80,14 +80,13 @@ color: #black;
   font-size: 20px;
   color: #0a0a0a;
   transition: text-shadow 0.2s ease-in-out;
-
   -webkit-user-select: none; /* Safari */
   -moz-user-select: none; /* Firefox */
   -ms-user-select: none; /* IE10+/Edge */
   user-select: none; /* Standard */
 }
 #otu{
-  text-shadow: 6px 6px 6px black;
+  text-shadow: 6px 6px 6px #36243a;
 }
 #cb{
   visibility: hidden;
