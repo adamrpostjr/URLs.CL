@@ -29,7 +29,7 @@ const schema = yup.object().shape({
   otu: yup.number().positive().integer().lessThan(3),
 });
 
-
+ 
 // --------------------------------------------------
 
 // Index
@@ -48,7 +48,10 @@ urls.get('/:slug', (req,res,next) =>{
 		if (err) throw err;
 		if (docs.length == 1) {
 			console.log('Sent: '+docs[0].ref);
-			res.redirect(docs[0].ref)
+      var uses = docs[0].uses+1
+      Database.update({ slug: slug }, { $set: { uses: uses} }, { multi: false }, function (err, numReplaced) {
+        res.redirect(docs[0].ref)
+      });
 		} else {
 			res.json('404 not found');
 		}
@@ -71,7 +74,7 @@ urls.post('/', slowDown({windowMs: 30 * 1000, delayAfter: 1, delayMs: 500,}), ra
       throw ({'errors':'REALLYYYY? REALLY THO..'});
     }
     Database.find({ slug: slug }, function (err, docs) {
-      if (err) throw err;
+      if (err) console.log(err);
       if (docs.length == 1) {
         console.log('Exists: '+docs[0].ref);
         res.json('Exists');
@@ -83,7 +86,21 @@ urls.post('/', slowDown({windowMs: 30 * 1000, delayAfter: 1, delayMs: 500,}), ra
       }
     });
   } catch (e) {
-    console.log(e.errors);
+    console.log(e);
     // res.json(e.errors)
   }
 });
+
+// Get URL Stats Basics
+urls.get('/API/:slug', (req, res) =>{
+  var slug = req.params.slug
+  Database.find({ slug: slug }, function (err, docs) {
+    if (err) console.log(err);
+    if (docs.length == 1) {
+      res.json(docs)
+    } else {
+      res.json('404 not found');
+    }
+  });
+
+})
