@@ -16,26 +16,43 @@ function createURI() {
   const input = document.getElementById('urls')
   const results = document.getElementById('link')
   const popup = document.getElementById('popup')
-  var checked = checkbox.checked ? checked = 1 : checked = 0
+  
+  
+  
   $(function() {
     $('#shorten').submit(function(event) {
       event.preventDefault();
       var checked = checkbox.checked ? checked = 2 : checked = 1
+      let url = ''
+      if (input.value.startsWith('http')) {
+        url = input.value
+      } else {
+        url = 'https://'+input.value
+      }
       $.ajax({
         url: '/',
         type: 'POST',
         contentType: 'application/json',
-        data: JSON.stringify({"url": input.value, "otu": checked}),
+        data: JSON.stringify({"url": url, "otu": checked}),
         dataType: 'json',
         success: function(resp){
-            console.log(resp)
             var key = Object.keys(resp)
             if (key[0] == "code") {
               console.log('error');
             } else {
               popup.style.display = "flex";
-              results.innerText = resp.FullURL
-              results.href = 'https://'+resp.FullURL
+              if (resp.fullURL != null) {
+                results.innerText = resp.fullURL
+                results.href = 'https://'+resp.fullURL
+              } else {
+                console.log(resp);
+                 resp == 'ref is a required field' ? txt = 'Please Enter a URL' : 
+                  resp == 'ref must be a valid URL' ? txt = 'Please Enter a valid URL' :
+                  resp == 'REALLYYYY? REALLY THO...' ? txt = resp :
+                  txt = 'please email adam@postalproduction.com for help'
+                results.innerText = txt
+              }
+             
             }
         }
       });
