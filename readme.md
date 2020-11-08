@@ -18,3 +18,8 @@ A simple open source url shortener for private and public use.
   - May not do this after all 
   - [x] Math The length of nanoID 
 - [ ] Create Image for title(or find nice font)
+
+
+## Thank You's
+- David Libeau for the Watch Dog font
+  - https://watchdogsfont.com/

@@ -61,8 +61,6 @@ function createURI() {
 }
 createURI()
 
-
-
 function popupControl() {
   const popup = document.getElementById('popup')
   const close = document.getElementById('close')
@@ -73,3 +71,11 @@ function popupControl() {
   }
 }
  popupControl()
+
+function openNav() {
+  document.getElementById("sideNav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("sideNav").style.width = "0";
+}

@@ -9,19 +9,28 @@
       crossorigin="anonymous"></script>
   </head>
   <body>
-
-    <form class="shorten" id="shorten" action="/" method="post">
-      <h1>URLs.<span>CL</span></h1>
-      <input class="urls" id="urls" type="text" name="url" value="" placeholder="ENTER A URL" autocomplete="off"> <br>
-      <label for="otu" id="otu">One Time Use?</label><input id="cb" type="checkbox" name="otu" value="su">
-      <button type="submit" name="submit">Shorten</button>
-    </form>
-    <div class="result" id="popup" style="display: none;">
-      <div id="close">X</div>
-      <span id="results"><a id="link" href=""></a> </span>
+    <div id="sideNav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#" onclick="closeNav()">Account</a>
+      <a href="#" onclick="closeNav()">Services</a>
+      <a href="#" onclick="closeNav()">API</a>
+      <a href="#" onclick="closeNav()">About</a>
+      <a href="#" onclick="closeNav()">Contact</a>
+      <span class="soon">COMMING SOON</span>
+      <span class="shout">github: <a href="https://urls.cl/arg">urls.cl/arg</a></span>
     </div>
-    <div class="shout">
-      github: <a href="https://github.com/adamrpostjr/URLS.CL">https://github.com/adamrpostjr/URLS.CL</a>
+    <div>
+      <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776;</span>
+      <form class="shorten" id="shorten" action="/" method="post">
+        <h1 class="glitch">URLs.CL</h1>
+        <input class="urls" id="urls" type="text" name="url" value="" placeholder="ENTER A URL" autocomplete="off" autocapitalize="off" spellcheck="false" autocorrect="off"> <br>
+        <label for="otu" id="otu">One Time Use?</label><input id="cb" type="checkbox" name="otu" value="su">
+        <button type="submit" name="submit">Shorten</button>
+      </form>
+      <div class="result" id="popup" style="display: none;">
+        <div id="close">&times;</div>
+        <span id="results"><a id="link" href=""></a> </span>
+      </div>
     </div>
   </body>
   <script src="/main.js" charset="utf-8"></script>
