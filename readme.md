@@ -17,7 +17,7 @@ A simple open source url shortener for private and public use.
 - [ ] ~~flush the db once a month or two months~~
   - May not do this after all 
   - [x] Math The length of nanoID 
-- [ ] Create Image for title(or find nice font)
+- [x] Create Image for title(or find nice font)
 
 
 ## Thank You's
