@@ -9,6 +9,8 @@
     top: 30%;
     left: 50%;
     transform: translate(-50%);
-    color: white;
+    color: #e5e9f0;
+    font-size: xx-large;
+    font-weight: bolder;
   }
 </style>

@@ -1,10 +1,62 @@
 <script>
+  import * as yup from "yup";
+  import axios from "axios";
+  import Popup from "./Popup.svelte";
+
+  let url;
+
+  let schema = yup.object().shape({
+    uri: yup.string().url().trim().required(),
+  });
+
+  function shorten() {
+    schema
+      .isValid({
+        uri: url,
+      })
+      .then(function (valid) {
+        if (valid) {
+          axios
+            .post("http://192.168.0.2:8086/", {
+              slug: url,
+            })
+            .then(function (response) {
+              success("message");
+            })
+            .catch(function (error) {
+              error(error);
+            });
+        } else {
+          error(
+            "Invalid URL, please make srue taht it starts with https:// or http:// or ftp://.. etc"
+          );
+        }
+      })
+      .catch((error) => error("message"));
+  }
+  function enter(e) {
+    if (e.charCode === 13) shorten();
+  }
+
+  let event;
+  let eventStatus = ""; // error, warning, success
+  let eventMessage = ""; // whatever the fuck the body is
+
+  function success(message) {
+    console.log(message);
+  }
+  function error(message) {
+    console.log(message);
+  }
 </script>
 
 <shorten>
-  <input type="text" />
+  {#if event}
+    <Popup es={eventStatus} em={eventMessage} />
+  {/if}
+  <input bind:value={url} on:keypress={enter} type="text" />
   <br />
-  <button>shorten</button>
+  <button on:click={shorten}>shorten</button>
 </shorten>
 
 <style>
