@@ -10,7 +10,7 @@ urls.use(bodyParser.urlencoded({ extended: true }))
 urls.use(bodyParser.json());
 
 // index | svelte app
-urls.get('*', (req, res) => {
+urls.get('/', (req, res) => {
    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
 });
 
