@@ -11,9 +11,7 @@ urls.use(bodyParser.json());
 
 // index | svelte app
 urls.get('*', (req, res) => {
-    console.log('test')
    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
-    res.json('test')
 });
 
 // redirection | data storing 

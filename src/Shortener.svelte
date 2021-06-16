@@ -21,14 +21,14 @@
               slug: url,
             })
             .then(function (response) {
-              success("message");
+              success(response.data);
             })
             .catch(function (error) {
               error(error);
             });
         } else {
           error(
-            "Invalid URL, please make srue taht it starts with https:// or http:// or ftp://.. etc"
+            "Invalid URL, please make sure that it starts with https:// or http:// or ftp://.. etc"
           );
         }
       })
