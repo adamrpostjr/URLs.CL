@@ -17,7 +17,7 @@
       .then(function (valid) {
         if (valid) {
           axios
-            .post("http://192.168.0.2:8086/", {
+            .post("http://127.0.0.1:8086/", {
               slug: url,
             })
             .then(function (response) {
@@ -43,23 +43,45 @@
   let eventMessage = ""; // whatever the fuck the body is
 
   function success(message) {
+    event = true
+    eventStatus = 'success'
+    eventMessage = message.slug
     console.log(message);
   }
   function error(message) {
     console.log(message);
   }
+  function close(){
+    event = false
+    eventStatus = ''
+    eventMessage = ''
+    console.log('test')
+  }
 </script>
+{#if event}
+  <wrapper on:click={close}>
+    <svelte:component this={Popup} es={eventStatus} em={eventMessage} />
+  </wrapper>
 
-<shorten>
-  {#if event}
-    <Popup es={eventStatus} em={eventMessage} />
-  {/if}
-  <input bind:value={url} on:keypress={enter} type="text" />
-  <br />
-  <button on:click={shorten}>shorten</button>
-</shorten>
+  {:else}
+  <shorten >
+    <input bind:value={url} on:keypress={enter} type="text" />
+    <br />
+    <button on:click={shorten}>shorten</button>
+  </shorten>
+
+{/if}
+
 
 <style>
+  wrapper{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #2e3440cc;
+  }
   shorten {
     position: absolute;
     top: 50%;
