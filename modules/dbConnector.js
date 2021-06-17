@@ -1,14 +1,67 @@
 require('dotenv').config()
-const monk = require('monk')
+const { nanoid } = require('nanoid')
+const yup = require('yup')
+const tools = require('./tools.js');
+const db = require('monk')(process.env.MONGOURI)
+var urls = db.get('urls')
 
-const db = monk(process.env.MONGOURI, (err, db) => {
-    console.log(db)
-})
-// const urls = db.get('urlscl')
+const slugs = [] // keep a cache of slugs to make this run faster --- coming soon
+const schema = yup.object().shape({
+    slug: yup.string().trim().matches(/^[\w\-]+$/i),
+    ref: yup.string().trim().url().required()
+});
+var genid = () => {
+    var rand =  Math.floor(Math.random() * (7 - 3) + 3)
+    return nanoid(rand)
+}
 
-// console.log('first', urls)
-// urls.find({}).then(() => {
-//     console.log('made it here')
-// })
 
-// db.close()
+
+
+async function saveURL(url) {
+    return new Promise( async function(resolve, reject) {
+        var slug = genid()
+        var ref = url
+        var time = tools.getTime(12)
+        var date = tools.getDate('short')
+        var dateTime = time.hour+":"+time.minute+":"+time.second+":"+time.meridiem+" "+date.month+"-"+date.day+"-"+date.year
+
+        try {
+            await schema.validate({
+                slug,
+                ref
+            })
+            if (ref.includes('urls.cl')) {
+                resolve({'message':'REALLYYYY? REALLY THO...'})
+            }
+            urls.findOne({slug: slug}).then((doc)=>{
+                if (!doc) {
+                    urls.insert({
+                        'url': ref,
+                        'slug': slug,
+                        'DateTime': dateTime
+                    }).then((docs)=>{
+                        resolve({'url': docs.url, 'slug': docs.slug})
+                    })
+                    //continue
+                } else {
+                    console.log('Exists: ', doc.slug)
+                    url(ref)
+                }
+            })
+        } catch (e) {
+            resolve(e)
+        }
+
+
+    })
+}
+async function findURL(slug) {
+    return new Promise( async function(resolve, reject) {
+        urls.findOne({slug: slug}).then((doc)=>{
+          resolve({url: doc.url, slug: doc.slug})
+        })
+    })
+}
+
+module.exports = { saveURL, findURL }
