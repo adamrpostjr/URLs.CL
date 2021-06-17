@@ -1,7 +1,7 @@
 <script>
   import * as yup from "yup";
   import axios from "axios";
-  import Popup from "./Popup.svelte";
+  import Popup from "./Shortened.svelte";
 
   let url;
 
@@ -17,7 +17,7 @@
       .then(function (valid) {
         if (valid) {
           axios
-            .post("http://127.0.0.1:8086/", {
+            .post("http://192.168.0.2:8086/", {
               slug: url,
             })
             .then(function (response) {
@@ -44,7 +44,6 @@
 
   function success(message) {
     event = true
-    eventStatus = 'success'
     eventMessage = message.slug
     console.log(message);
   }
@@ -53,14 +52,12 @@
   }
   function close(){
     event = false
-    eventStatus = ''
     eventMessage = ''
-    console.log('test')
   }
 </script>
 {#if event}
   <wrapper on:click={close}>
-    <svelte:component this={Popup} es={eventStatus} em={eventMessage} />
+    <svelte:component this={Popup} em={eventMessage} />
   </wrapper>
 
   {:else}
@@ -80,7 +77,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: #2e3440cc;
+    /* background: #2e3440; */
   }
   shorten {
     position: absolute;
