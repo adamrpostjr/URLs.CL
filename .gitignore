@@ -106,3 +106,4 @@ Database.db
 
 # nedb local store
 *.db
+/public/build/
