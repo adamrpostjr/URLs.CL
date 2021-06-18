@@ -4,9 +4,10 @@
   import Popup from "./Shortened.svelte";
   import Alert from "./Alert.svelte";
 
-  var text
-  var status
-  var alert
+  var text;
+  var status;
+  var alert;
+  var alertError = 0;
 
   let url;
 
@@ -28,67 +29,75 @@
             .then(function (response) {
               success(response.data);
             })
-            .catch(function (error) {
-              error(error);
+            .catch(function (err) {
+              // alert = false;
+              console.log(alertError);
+              if (alertError == 0) {
+                alertError = alertError + 1;
+                error("Woops, could you try again?");
+              } else if (alertError == 1) {
+                alertError = alertError + 1;
+                error("How about we conntact support, find it under the menu!");
+              } else {
+                error(
+                  "Looks like Dave unplugged the server again.. one moment we will be back!"
+                );
+              }
             });
         } else {
           error(
-            "Invalid URL, please make sure that it starts with https:// or http:// or ftp://.. etc"
+            "Invalid URL, please make sure that it starts with https:// or http://.. more support coming soon"
           );
         }
       })
-      .catch((error) => error("message"));
+      .catch((err) => error(err));
   }
   function enter(e) {
     if (e.charCode === 13) shorten();
   }
 
   let event;
-  let eventStatus = ""; // error, warning, success
   let eventMessage = ""; // whatever the fuck the body is
 
   function success(message) {
-    event = true
-    eventMessage = message.slug
+    event = true;
+    eventMessage = message.slug;
   }
   function error(message) {
-    alert = true
-    url = ''
-     status = 0
-     text = message
-     console.log(message)
-     setTimeout(() => {
-       alert = false
-     }, 4000);
+    alert = true;
+    url = "";
+    status = 0;
+    text = message;
+    // console.log(message);
+    // setTimeout(() => {
+    //   alert = false;
+    // }, 4000);
   }
-  function close(){
-    event = false
-    url = ''
-    eventMessage = ''
+  function close() {
+    event = false;
+    url = "";
+    eventMessage = "";
   }
 </script>
 
 {#if alert}
-  <Alert text={text} status={status}/>
+  <Alert {text} {status} />
 {/if}
 
 {#if event}
   <wrapper on:click={close}>
     <svelte:component this={Popup} em={eventMessage} />
   </wrapper>
-
-  {:else}
-  <shorten >
+{:else}
+  <shorten>
     <input bind:value={url} on:keypress={enter} type="text" />
     <br />
     <button on:click={shorten}>shorten</button>
   </shorten>
-
 {/if}
 
-
 <style>
-  wrapper{
+  wrapper {
     height: 100vh;
     width: 100vw;
     position: absolute;
@@ -125,5 +134,6 @@
     color: #2e3440;
     font-weight: bolder;
     cursor: pointer;
+    text-transform: uppercase;
   }
 </style>
