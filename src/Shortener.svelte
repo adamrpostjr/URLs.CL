@@ -2,6 +2,11 @@
   import * as yup from "yup";
   import axios from "axios";
   import Popup from "./Shortened.svelte";
+  import Alert from "./Alert.svelte";
+
+  var text
+  var status
+  var alert
 
   let url;
 
@@ -45,16 +50,28 @@
   function success(message) {
     event = true
     eventMessage = message.slug
-    console.log(message);
   }
   function error(message) {
-    console.log(message);
+    alert = true
+    url = ''
+     status = 0
+     text = message
+     console.log(message)
+     setTimeout(() => {
+       alert = false
+     }, 4000);
   }
   function close(){
     event = false
+    url = ''
     eventMessage = ''
   }
 </script>
+
+{#if alert}
+  <Alert text={text} status={status}/>
+{/if}
+
 {#if event}
   <wrapper on:click={close}>
     <svelte:component this={Popup} em={eventMessage} />
