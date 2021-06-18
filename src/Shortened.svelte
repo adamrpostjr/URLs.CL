@@ -1,37 +1,27 @@
 <script>
-  import Alert from "./Alert.svelte";
+  import { alertStatus, alertText, alertColor } from "./stores"
 
   export let em;
   export let shortEvent;
-  // export let copy;
-  var text;
-  var status;
-  var alert;
 
   var copy = (es) => {
     if (event.button == 2) {
+      alertStatus.set(0)
+      alertText.set("")
       event.preventDefault();
-      alert = true;
-      text = "copied!";
-      status = 1;
+      
+      alertStatus.set(1)
+      alertText.set("copied!");
+      alertColor.set(1)
 
-      setTimeout(() => {
-        alert = false;
-      }, 2000);
-      setTimeout(() => {
-        shortEvent = false;
-      }, 3000);
+      shortEvent = false;
+
     }
   };
 </script>
 
-{#if alert}
-  <Alert {text} {status} />
-{/if}
-
 <popup>
-  <a href="https://urls.cl/{em}" on:contextmenu|preventDefault={copy}
-    >urls.cl/{em}</a
+  <a href="https://urls.cl/{em}" on:contextmenu|preventDefault={copy}>urls.cl/{em}</a
   >
 </popup>
 

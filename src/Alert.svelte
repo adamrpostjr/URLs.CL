@@ -1,12 +1,40 @@
 <script>
-  export let text;
-  export let status;
   import { fade } from "svelte/transition";
+  import { alertStatus, alertText, alertColor } from "./stores"
+
+  let status
+  let text
+  let color
+  var interval
+
+
+
+
+  const unsubscribe = alertStatus.subscribe(value=>{
+    clearInterval(interval)
+    status = value
+    if (value) {
+      interval = setInterval(() => {
+        status = 0
+      }, 5000);
+    }
+  })
+ alertText.subscribe(value=>{
+    text = value
+  })
+  alertColor.subscribe(value=>{
+    color = value
+  })
 </script>
 
-<alert in:fade out:fade class={status === 1 ? "green" : "red"}>
-  {text}
-</alert>
+{#if status}
+
+  <alert in:fade out:fade class={color === 1 ? "green" : "red"}>
+    {text}
+  </alert>
+{/if}
+
+
 
 <style>
   alert {
