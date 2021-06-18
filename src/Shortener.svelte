@@ -56,25 +56,32 @@
     if (e.charCode === 13) shorten();
   }
 
-  let event;
+  let shortEvent;
   let eventMessage = ""; // whatever the fuck the body is
 
   function success(message) {
-    event = true;
+    shortEvent = true;
     eventMessage = message.slug;
+    console.log(shortEvent);
+    function test() {
+      setTimeout(() => {
+        test();
+      }, 1000);
+      test();
+    }
   }
   function error(message) {
     alert = true;
     url = "";
     status = 0;
     text = message;
-    // console.log(message);
-    // setTimeout(() => {
-    //   alert = false;
-    // }, 4000);
+    console.log(message);
+    setTimeout(() => {
+      alert = false;
+    }, 4000);
   }
   function close() {
-    event = false;
+    shortEvent = false;
     url = "";
     eventMessage = "";
   }
@@ -84,9 +91,9 @@
   <Alert {text} {status} />
 {/if}
 
-{#if event}
+{#if shortEvent}
   <wrapper on:click={close}>
-    <svelte:component this={Popup} em={eventMessage} />
+    <svelte:component this={Popup} em={eventMessage} bind:shortEvent />
   </wrapper>
 {:else}
   <shorten>
