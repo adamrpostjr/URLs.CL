@@ -2,16 +2,14 @@
   import * as yup from "yup";
   import axios from "axios";
   import Popup from "./Shortened.svelte";
-  import Alert from "./Alert.svelte";
+  import { alertStatus, alertText, alertColor } from "./stores"
 
-  var text;
-  var status;
-  var alert;
-  var alertError = 0;
+  var url;
+  var shortEvent;
+  var shortURL = ""; 
+  let alertError = 0
 
-  let url;
-
-  let schema = yup.object().shape({
+  var schema = yup.object().shape({
     uri: yup.string().url().trim().required(),
   });
 
@@ -23,7 +21,7 @@
       .then(function (valid) {
         if (valid) {
           axios
-            .post("http://192.168.0.2:8086/", {
+            .post("http://127.0.0.1:8086/", {
               slug: url,
             })
             .then(function (response) {
@@ -56,44 +54,31 @@
     if (e.charCode === 13) shorten();
   }
 
-  let shortEvent;
-  let eventMessage = ""; // whatever the fuck the body is
 
   function success(message) {
     shortEvent = true;
-    eventMessage = message.slug;
-    console.log(shortEvent);
-    function test() {
-      setTimeout(() => {
-        test();
-      }, 1000);
-      test();
-    }
+    shortURL = message.slug;
   }
   function error(message) {
-    alert = true;
+    alertStatus.set(0)
+    alertText.set("")
+    alertColor.set(0)
     url = "";
-    status = 0;
-    text = message;
-    console.log(message);
     setTimeout(() => {
-      alert = false;
-    }, 4000);
+      alertStatus.set(1)
+      alertText.set(message)
+    }, 200);
   }
   function close() {
     shortEvent = false;
     url = "";
-    eventMessage = "";
+    shortURL = "";
   }
 </script>
 
-{#if alert}
-  <Alert {text} {status} />
-{/if}
-
 {#if shortEvent}
   <wrapper on:click={close}>
-    <svelte:component this={Popup} em={eventMessage} bind:shortEvent />
+    <svelte:component this={Popup} em={shortURL} bind:shortEvent />
   </wrapper>
 {:else}
   <shorten>
