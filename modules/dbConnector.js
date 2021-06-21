@@ -1,4 +1,5 @@
 require('dotenv').config()
+const { response } = require('express');
 const { nanoid } = require('nanoid')
 const yup = require('yup')
 const tools = require('./tools.js');
@@ -58,8 +59,12 @@ async function saveURL(url) {
 }
 async function findURL(slug) {
     return new Promise( async function(resolve, reject) {
-        urls.findOne({slug: slug}).then((doc)=>{
-          resolve({url: doc.url, slug: doc.slug})
+        urls.findOne({ slug: slug }).then((doc) => {
+            if (doc) {
+                resolve({url: doc.url, slug: doc.slug})
+            } else {
+                resolve({'url': 'Not Found'})
+            }
         })
     })
 }

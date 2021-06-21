@@ -18,9 +18,16 @@ urls.get('/', (req, res) => {
 });
 
 // redirection | data storing 
-urls.get('/:slug', (req, res) => {
+urls.get('/:slug', async (req, res) => {
     var slug = req.params.slug
-    res.json({ "search db for": slug })
+    var search = await db.findURL(slug)
+    if (search.url == 'Not Found') {
+        res.status(404)
+        res.sendFile(path.resolve(__dirname, 'public', '404.html'));
+
+    } else {
+        res.redirect(search.url)
+    }
 })
 
 // creating a new url

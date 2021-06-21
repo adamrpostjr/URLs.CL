@@ -2,12 +2,12 @@
   import * as yup from "yup";
   import axios from "axios";
   import Popup from "./Shortened.svelte";
-  import { alertStatus, alertText, alertColor } from "./stores"
+  import { alertStatus, alertText, alertColor } from "./stores";
 
   var url;
   var shortEvent;
-  var shortURL = ""; 
-  let alertError = 0
+  var shortURL = "";
+  let alertError = 0;
 
   var schema = yup.object().shape({
     uri: yup.string().url().trim().required(),
@@ -21,7 +21,7 @@
       .then(function (valid) {
         if (valid) {
           axios
-            .post("http://127.0.0.1:8086/", {
+            .post("http://192.168.0.2:8086/", {
               slug: url,
             })
             .then(function (response) {
@@ -54,19 +54,18 @@
     if (e.charCode === 13) shorten();
   }
 
-
   function success(message) {
     shortEvent = true;
     shortURL = message.slug;
   }
   function error(message) {
-    alertStatus.set(0)
-    alertText.set("")
-    alertColor.set(0)
+    alertStatus.set(0);
+    alertText.set("");
+    alertColor.set(0);
     url = "";
     setTimeout(() => {
-      alertStatus.set(1)
-      alertText.set(message)
+      alertStatus.set(1);
+      alertText.set(message);
     }, 200);
   }
   function close() {
