@@ -4,8 +4,29 @@
   export let em;
   export let shortEvent;
 
+  function copyText(element) {
+    var range, selection;
+
+    if (document.body.createTextRange) {
+      range = document.body.createTextRange();
+      range.moveToElementText(element);
+      range.select();
+    } else if (window.getSelection) {
+      selection = window.getSelection();
+      range = document.createRange();
+      range.selectNodeContents(element);
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+    document.execCommand("copy");
+  }
+
   var copy = (es) => {
+    console.log(es.target);
     if (event.button == 2) {
+      var el = es.target;
+      copyText(el);
+
       alertStatus.set(1);
       alertText.set("copied!");
       alertColor.set(1);
