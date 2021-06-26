@@ -21,26 +21,17 @@
       .then(function (valid) {
         if (valid) {
           axios
-            .post("http://192.168.0.2:8086/", {
+            .post("/", {
               slug: url,
             })
             .then(function (response) {
+              url = "";
               success(response.data);
             })
             .catch(function (err) {
               // alert = false;
-              console.log(alertError);
-              if (alertError == 0) {
-                alertError = alertError + 1;
-                error("Woops, could you try again?");
-              } else if (alertError == 1) {
-                alertError = alertError + 1;
-                error("How about we conntact support, find it under the menu!");
-              } else {
-                error(
-                  "Looks like Dave unplugged the server again.. one moment we will be back!"
-                );
-              }
+              console.log;
+              error(err.response.data);
             });
         } else {
           error(
@@ -59,14 +50,9 @@
     shortURL = message.slug;
   }
   function error(message) {
-    alertStatus.set(0);
-    alertText.set("");
+    alertStatus.set(1);
     alertColor.set(0);
-    url = "";
-    setTimeout(() => {
-      alertStatus.set(1);
-      alertText.set(message);
-    }, 200);
+    alertText.set(message);
   }
   function close() {
     shortEvent = false;

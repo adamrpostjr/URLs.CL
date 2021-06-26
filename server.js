@@ -1,4 +1,6 @@
 const express = require('express');
+const rateLimit = require('express-rate-limit');
+const slowDown = require('express-slow-down');
 const bodyParser = require('body-parser');
 const path = require('path');
 const cors = require('cors')
@@ -31,7 +33,7 @@ urls.get('/:slug', async (req, res) => {
 })
 
 // creating a new url
-urls.post('/', async (req, res) => {
+urls.post('/', rateLimit({windowMs: 30 * 1000,max: 3}),async (req, res) => {
     var short = await db.saveURL(req.body.slug)
     res.json(short)
 })

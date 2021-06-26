@@ -7,12 +7,13 @@
   let color;
   var interval;
 
-  const unsubscribe = alertStatus.subscribe((value) => {
-    clearInterval(interval);
+  alertStatus.subscribe((value) => {
     status = value;
+    clearInterval(interval);
+
     if (value) {
       interval = setInterval(() => {
-        status = 0;
+        alertStatus.set(0);
       }, 5000);
     }
   });
@@ -20,7 +21,7 @@
     text = value;
   });
   alertColor.subscribe((value) => {
-    console.log(value);
+    // console.log(value);
     color = value;
   });
 </script>

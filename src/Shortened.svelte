@@ -1,27 +1,22 @@
 <script>
-  import { alertStatus, alertText, alertColor } from "./stores"
+  import { alertStatus, alertText, alertColor } from "./stores";
 
   export let em;
   export let shortEvent;
 
   var copy = (es) => {
     if (event.button == 2) {
-      alertStatus.set(0)
-      alertText.set("")
-      event.preventDefault();
-      
-      alertStatus.set(1)
+      alertStatus.set(1);
       alertText.set("copied!");
-      alertColor.set(1)
-
+      alertColor.set(1);
       shortEvent = false;
-
     }
   };
 </script>
 
 <popup>
-  <a href="https://urls.cl/{em}" on:contextmenu|preventDefault={copy}>urls.cl/{em}</a
+  <a href="https://urls.cl/{em}" on:contextmenu|preventDefault={copy}
+    >urls.cl/{em}</a
   >
 </popup>
 
