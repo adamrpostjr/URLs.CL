@@ -1,23 +1,33 @@
 # URLS.CL
 
-## TODO
+## Next Steps & Time Frame
 
-## Idea List
+- July 2021
+  1.  Logo Design (or find someon?)
+  2.  404 Design
+- August 2021
+  1.  UI Overview
+  2.  Implement Gammer Colors ( old UI )
+- September 2021
+  1.  Host Unpaid Bug Hunt
+  2.  Account System
+- October 2021
+  1.  Analytics System
+  2.  Advertising
+- November 2021
+  1. API Design
+  1. Tiered System
+  1. Paid Teir Build Out
+  1. Speed Test Competiors and refactor for speed
+- December 2021
 
-- Database: MongoDB
-  -- Monk
+  1. Off / Paid Tier Building
 
-- Web Server
+- January 2022
+  1. CDN ??? WHHHAATTTT ??
+- Febuary 2022
+  1. Integrate CDN into to paid teir system
 
-  - Express
-  - body-parser
-  - some kind of logger libary
-  - some kind of libary / home grown analytics
-    ( here rather than another service.. it will be faster here)
+# Collab?
 
-- Style
-
-  - SASS
-
-- Data validation
-  - yup
+Fully open to pull request!
