@@ -38,6 +38,6 @@ urls.post('/', rateLimit({windowMs: 30 * 1000,max: 3}),async (req, res) => {
     res.json(short)
 })
 
-urls.listen(8086, () => {
+urls.listen(8085, () => {
     console.log('Server is up');
 });
