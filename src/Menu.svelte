@@ -12,10 +12,10 @@
   <a href="/">Account</a>
   <a href="/">Services</a>
   <a href="/">API</a>
-  <a href="/">About</a>
-  <a href="/">Contact</a>
+  <a href="/git">About</a>
+  <a href="/contact">Contact</a>
   <comingSoon>COMING SOON</comingSoon>
-  <shout>github: <a href="https://urls.cl/git">urls.cl/git</a></shout>
+  <shout>github: <a href="/git">urls.cl/git</a></shout>
 </menu>
 
 <style>
