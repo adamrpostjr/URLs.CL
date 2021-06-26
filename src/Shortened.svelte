@@ -22,7 +22,6 @@
   }
 
   var copy = (es) => {
-    console.log(es.target);
     if (event.button == 2) {
       var el = es.target;
       copyText(el);

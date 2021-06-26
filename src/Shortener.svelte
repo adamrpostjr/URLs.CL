@@ -29,8 +29,6 @@
               success(response.data);
             })
             .catch(function (err) {
-              // alert = false;
-              console.log;
               error(err.response.data);
             });
         } else {

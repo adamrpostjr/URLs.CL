@@ -21,7 +21,6 @@
     text = value;
   });
   alertColor.subscribe((value) => {
-    // console.log(value);
     color = value;
   });
 </script>
