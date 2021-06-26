@@ -37,5 +37,5 @@ urls.post('/', async (req, res) => {
 })
 
 urls.listen(8086, () => {
-    console.log('Server is up at port http://192.168.0.2:8086');
+    console.log('Server is up');
 });
